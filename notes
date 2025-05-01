@@ -1,0 +1,474 @@
+id_rsa.pub
+￼
+ ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDLk/K0b4RsvkGH3opH5HrC0Cq6R6loHBbqG4jf0Uj1RmkXWHmbkunccJNUqPB/QStMeZutmwxtmDkd+wwxQMjDWoyeLzWHAEG26h1yY3O3Kt2utL/w+1IV56WWjnotKTfe70lQAwgzCFHA/+Ov28TeBaBaj0tw9H4pbYRhM5ASEPFz0xlYsqnC+Cd2IU4xGIQiZymUWYEUtTSquWHG0dNFb4WrZHkvrWZBME2pPZBwt65s8D1mOAN93YsiZkkUQBC+IOLBPnT/ctiOaQbauy4Wu4s5bgnT4GU0EzWF/WI0hK3r7O/NbLYV7PkUP2tes1vn5W0vPzv6Vlqm+TXuY/hLgMB5Ay6TYWRxx0KPj3o6V8pC0kYfmGB1HjyzCxp1Is5Ai6rRFGIWjatT/rJaguOfU4ft9/l7dVVaNtI+N75u6I2VRLlRpzPtq/NnEFRjYLCNgipY8v150Sm00ENqNSh9eLBm/LZg7GvYiZk0fdoV8petaPj55glTHQmF8xxMcF6X6V8espGHHwSqnMoAS1k0nc09McsXmzyfL5/4WgStHw2KkLjeIO1iGv79NolQJv1spWMshSQZvIhfZbaQJuWdwLU/nSYA3UEwu3LsTi2g289ODSasqgAk/OBGqIyqjIuWciM/zRUbTHv5UjBQzje+Wd9SptCgNaukAkt7Nz4WkQ== anulekha_achanta@intuit.com
+Host github.com
+  AddKeysToAgent yes
+  UseKeychain yes
+  IdentityFile ~/.ssh/id_ed25519
+
+ "tx_type_id": "35", 		"account_id": "13",
+"address_id": "778", "shipping_address_id": "779", "ship_date": "2025-02-13", 		"net_amount": "3000000000",
+    "net_amount": 100,
+		"exchange_rate": "10000000",  "last_item_id": 6,   
+Daily status update:
+1.  assisted me about insomnia and qbo.
+2. Insomnia Installation : Done
+3. Created a sample estimate transaction and also tried to call api with authorisation provided by yujwal.
+4. Stuck with Podman issue. For checking DBA access I continued below steps
+5. RSA key pair generated : done
+6. eiamCLI installation : done
+7. Stuck at this step with this error:  =====================================   ssh -L 5436:sts-e2e-uw2-101.cluster-c5uiwi0q88cz.us-west-2.rds.amazonaws.com:5432 -N -i /Users/aachanta/.ssh/id_rsa aachanta@ec2-44-241-159-205.us-west-2.compute.amazonaws.com
+8. Warning: Identity file /Users/aachanta/.ssh/id_rsa aachanta@ec2-44-241-159-205.us-west-2.compute.amazonaws.com not accessible: No such file or directory.
+ QBO is migrating to STS that’s why we have divided it into different stages.(according to our goals)  first milestone is stage0: It is a proxy service call (Its partially dependent on qbo and sts. In sts service we will implement a rest template that is the proxy call.This proxy call is direct call to qbo service. qbo returns some response. along with saving into sts db it is directly returning the response to ui sts saves this response into sts db. Here response to ui is not waiting for saving into sts db. Both are working on parallel(synchronous)  Stage3: Same as stage0 only change with response.(It is asynchronous  save db into sts and then sts return response to ui).  we also have stage4: It is fully depending on sts response  mapping is present in sale line domain for sequence. mapping is present for memo in sale entity mapper class.  
+
+
+	
+ALTER TABLE sale_payment_info
+    ADD COLUMN IF NOT EXISTS enable_online_payment boolean;
+ALTER TABLE sale_detail
+    ADD COLUMN IF NOT EXISTS payment_method_id CHARACTER VARYING(255);
+
+		
+		
+		
+ALTER TABLE sale_detail
+ADD COLUMN IF NOT EXISTS customer_id CHARACTER VARYING(255),
+
+ADD COLUMN IF NOT EXISTS dept_id CHARACTER VARYING(255);
+
+
+truncate salestxn.sale cascade;
+truncate salestxn.sale_detail cascade;
+truncate salestxn.outbox cascade;
+truncate salestxn.SALE_PAYMENT_INFO cascade;
+truncate salestxn.EXTERNAL_REFERENCE cascade;
+truncate salestxn.pending_entities cascade;
+truncate salestxn.ATTACHMENT_REFERENCE cascade;
+truncate salestxn.sale_audit cascade;
+truncate salestxn.sale_link cascade;
+truncate salestxn.sale_tax_detail cascade;    truncate sts_data.sale cascade;
+truncate sts_data.sale_detail cascade;
+truncate sts_data.outbox cascade;
+truncate sts_data.SALE_PAYMENT_INFO cascade;
+truncate sts_data.EXTERNAL_REFERENCE cascade;
+truncate sts_data.pending_entities cascade;
+truncate sts_data.ATTACHMENT_REFERENCE cascade;
+truncate sts_data.sale_audit cascade;
+truncate sts_data.sale_link cascade;
+truncate sts_data.sale_tax_detail cascade;
+
+
+  Payload data passing: Json formatter lo once check the below payload or else not needed..just add the data same like paymentmethodid.    {"id":"64","meta":{"created":"2025-04-11T09
+￼
+52.531Z","createdByUser":{"id":"9341453821153531"},"updated":"2025-04-11T09
+￼
+52.531Z","updatedByUser":{"id":"9341453821153531"},"createdByApp":{"id":"5984175597871433197"},"updatedByApp":{"id":"5984175597871433197"}},"intuitAccountId":"9341453821153484","version":0,"sourceEntityVersion":0,"active":true,"transactionDate":"2025-04-11","totalAmount":{"currency":"USD","value":"108.8800000"},"homeTotalAmount":{"currency":"USD","value":"108.8800000"},"exchangeRate":"1.0000000","currencyCode":"USD","referenceNumber":"242zz","approvalInfo":{"approvalDetails":[{}]},"tags":[],"customFields":[],"customerId":"3","schedule":{},"delivery":{"shareLink":{},"emailDelivery":{"sendLater":false},"printDelivery":{"status":"NOT_PRINTED","printLater":false,"checkStatus":"NOT_PRINTED","checkPrintLater":false},"deliveryType":"DONT"},"style":{"styleTemplateId":"12029002"},"financing":{"financingEnabled":false},"billingAddress":{"freeFormAddress":"Anu-Test-attachment\n4 Washington Square N\ncalifornia, New York\nNY  10003 United States"},"acceptance":{"acceptanceStatus":"PENDING"},"email":{},"isVoided":false,"onlinePayment":{"enableCCPayment":false,"enableBankPayment":false,"enablePayPalPayment":false,"enableTips":false},"estimateCostAmount":{"currency":"USD","value":"0.0000000"},"estimateHomeCostAmount":{"currency":"USD","value":"0.0000000"},"billingAddressId":"135","shippingAddressId":"136","regionIndustryType":"NOT_SPECIFIED","tax":{"totalTaxAmount":{"currency":"USD","value":"8.8800000"},"taxRateDetails":[{"taxRateId":7,"taxAmount":{"currency":"USD","value":"-4.0000000"},"taxableAmount":{"currency":"USD","value":"-100.0000000"},"qboTaxAmount":{"currency":"USD","value":"-4.0000000"},"qboTaxableAmount":{"currency":"USD","value":"-100.0000000"},"taxRateType":"PERCENTAGE","taxRate":{"currency":"USD","value":"4.0000000"}},{"taxRateId":8,"taxAmount":{"currency":"USD","value":"-4.8800000"},"taxableAmount":{"currency":"USD","value":"-100.0000000"},"qboTaxAmount":{"currency":"USD","value":"-4.8800000"},"qboTaxableAmount":{"currency":"USD","value":"-100.0000000"},"taxRateType":"PERCENTAGE","taxRate":{"currency":"USD","value":"4.8750000"}}],"taxTreatmentType":"EXCLUSIVE","taxableType":false,"taxExemptionOverridden":false,"exchangeRate":"1.0000000","currencyCode":"USD","customerId":{"accountId":"3"},"exceptionFlag":false,"isSale":true,"isNoPost":true},"shipping":{"amount":{"currency":"USD"},"shipToAddress":{"freeFormAddress":"Anu-Test-attachment\n4 Washington Square N\ncalifornia, New York\nNY  10003 United States"},"tax":{"taxable":false,"taxAmount":{"currency":"USD"},"qboTaxAmount":{"currency":"USD"}},"inclusiveAmount":{"currency":"USD"},"exchangeRate":"1.0000000","currencyCode":"USD","customerId":{"accountId":"3"},"isNoPost":true},"lines":[{"lineId":"1","lineOrder":1,"totalAmount":{"currency":"USD","value":"100.0000000"},"customExtensions":[],"quantity":"1.0000000","rate":{"currency":"USD","value":"100.0000000"},"productVariantId":"1","isDeferred":false,"homeTotalAmount":{"currency":"USD","value":"100.0000000"},"homeCostAmount":{"currency":"USD","value":"0.0000000"},"inclusiveAmount":{"currency":"USD","value":"0.0000000"},"subtotalAmount":{"currency":"USD","value":"0.0000000"},"itemRateType":"PER_QTY_RATE","estimateCostAmount":{"currency":"USD","value":"0.0000000"},"estimateCostRate":{"currency":"USD","value":"0.0000000"},"remainingAmount":{"currency":"USD","value":"0.0000000"},"lineManuallyClosed":false,"markup":{"currency":"USD"},"rateValueType":"ABSOLUTE","tax":{"taxable":true,"taxGroupId":6,"taxInclusiveAmount":{"currency":"USD","value":"0.0000000"},"taxAmount":{"currency":"USD","value":"-8.8800000"},"taxableAmount":{"currency":"USD","value":"-100.0000000"},"taxOverrideDeltaAmount":{"currency":"USD","value":"0.0000000"},"specialTaxType":"NONE","specialTaxOpenBalance":{"currency":"USD","value":"0.0000000"},"qboTaxAmount":{"currency":"USD","value":"-8.8800000"},"qboTaxableAmount":{"currency":"USD","value":"-100.0000000"}},"isForexGainLoss":false,"createdAt":"2025-04-11T02
+￼
+52Z","createdByUser":{"id":"9341453821153531"},"updatedAt":"2025-04-11T02
+￼
+52Z","updatedByUser":{"id":"9341453821153531"},"accountId":"5","exchangeRate":"1.0000000","currencyCode":"USD","customerId":{"accountId":"3"},"isSale":true,"isNoPost":true}],"exceptionFlag":false,"isNoPost":true,"numberOfDetailLines":4,"maxSequenceNumber":3,"esignature":{}, "discount" : {"paymentMethodId": "1"}, "shipping" : {"paymentMethodId": "1"}}
+
+
+Locationid:  "{\"id\":\"64\",\"meta\":{\"created\":\"2025-04-11T09:00:52.531Z\",\"createdByUser\":{\"id\":\"9341453821153531\"},\"updated\":\"2025-04-11T09:00:52.531Z\",\"updatedByUser\":{\"id\":\"9341453821153531\"},\"createdByApp\":{\"id\":\"5984175597871433197\"},\"updatedByApp\":{\"id\":\"5984175597871433197\"}},\"intuitAccountId\":\"9341453821153484\",\"version\":0,\"sourceEntityVersion\":0,\"active\":true,\"transactionDate\":\"2025-04-11\",\"totalAmount\":{\"currency\":\"USD\",\"value\":\"108.8800000\"},\"homeTotalAmount\":{\"currency\":\"USD\",\"value\":\"108.8800000\"},\"exchangeRate\":\"1.0000000\",\"currencyCode\":\"USD\",\"referenceNumber\":\"242zz\",\"approvalInfo\":{\"approvalDetails\":[{}]},\"tags\":[],\"customFields\":[],\"customerId\":\"3\",\"schedule\":{},\"delivery\":{\"shareLink\":{},\"emailDelivery\":{\"sendLater\":false},\"printDelivery\":{\"status\":\"NOT_PRINTED\",\"printLater\":false,\"checkStatus\":\"NOT_PRINTED\",\"checkPrintLater\":false},\"deliveryType\":\"DONT\"},\"style\":{\"styleTemplateId\":\"12029002\"},\"financing\":{\"financingEnabled\":false},\"billingAddress\":{\"freeFormAddress\":\"Anu-Test-attachment\\n4 Washington Square N\\ncalifornia, New York\\nNY  10003 United States\"},\"acceptance\":{\"acceptanceStatus\":\"PENDING\"},\"email\":{},\"isVoided\":false,\"onlinePayment\":{\"enableCCPayment\":false,\"enableBankPayment\":false,\"enablePayPalPayment\":false,\"enableTips\":false},\"estimateCostAmount\":{\"currency\":\"USD\",\"value\":\"0.0000000\"},\"estimateHomeCostAmount\":{\"currency\":\"USD\",\"value\":\"0.0000000\"},\"billingAddressId\":\"135\",\"shippingAddressId\":\"136\",\"regionIndustryType\":\"NOT_SPECIFIED\",\"tax\":{\"totalTaxAmount\":{\"currency\":\"USD\",\"value\":\"8.8800000\"},\"taxRateDetails\":[{\"taxRateId\":7,\"taxAmount\":{\"currency\":\"USD\",\"value\":\"-4.0000000\"},\"taxableAmount\":{\"currency\":\"USD\",\"value\":\"-100.0000000\"},\"qboTaxAmount\":{\"currency\":\"USD\",\"value\":\"-4.0000000\"},\"qboTaxableAmount\":{\"currency\":\"USD\",\"value\":\"-100.0000000\"},\"taxRateType\":\"PERCENTAGE\",\"taxRate\":{\"currency\":\"USD\",\"value\":\"4.0000000\"}},{\"taxRateId\":8,\"taxAmount\":{\"currency\":\"USD\",\"value\":\"-4.8800000\"},\"taxableAmount\":{\"currency\":\"USD\",\"value\":\"-100.0000000\"},\"qboTaxAmount\":{\"currency\":\"USD\",\"value\":\"-4.8800000\"},\"qboTaxableAmount\":{\"currency\":\"USD\",\"value\":\"-100.0000000\"},\"taxRateType\":\"PERCENTAGE\",\"taxRate\":{\"currency\":\"USD\",\"value\":\"4.8750000\"}}],\"taxTreatmentType\":\"EXCLUSIVE\",\"taxableType\":false,\"taxExemptionOverridden\":false,\"exchangeRate\":\"1.0000000\",\"currencyCode\":\"USD\",\"customerId\":{\"accountId\":\"3\"},\"exceptionFlag\":false,\"isSale\":true,\"isNoPost\":true},\"shipping\":{\"amount\":{\"currency\":\"USD\"},\"shipToAddress\":{\"freeFormAddress\":\"Anu-Test-attachment\\n4 Washington Square N\\ncalifornia, New York\\nNY  10003 United States\"},\"tax\":{\"taxable\":false,\"taxAmount\":{\"currency\":\"USD\"},\"qboTaxAmount\":{\"currency\":\"USD\"}},\"inclusiveAmount\":{\"currency\":\"USD\"},\"exchangeRate\":\"1.0000000\",\"currencyCode\":\"USD\",\"customerId\":{\"accountId\":\"3\"},\"isNoPost\":true},\"lines\":[{\"lineId\":\"1\",\"lineOrder\":1,\"totalAmount\":{\"currency\":\"USD\",\"value\":\"100.0000000\"},\"customExtensions\":[],\"quantity\":\"1.0000000\",\"rate\":{\"currency\":\"USD\",\"value\":\"100.0000000\"},\"productVariantId\":\"1\",\"isDeferred\":false,\"homeTotalAmount\":{\"currency\":\"USD\",\"value\":\"100.0000000\"},\"homeCostAmount\":{\"currency\":\"USD\",\"value\":\"0.0000000\"},\"inclusiveAmount\":{\"currency\":\"USD\",\"value\":\"0.0000000\"},\"subtotalAmount\":{\"currency\":\"USD\",\"value\":\"0.0000000\"},\"itemRateType\":\"PER_QTY_RATE\",\"estimateCostAmount\":{\"currency\":\"USD\",\"value\":\"0.0000000\"},\"estimateCostRate\":{\"currency\":\"USD\",\"value\":\"0.0000000\"},\"remainingAmount\":{\"currency\":\"USD\",\"value\":\"0.0000000\"},\"lineManuallyClosed\":false,\"markup\":{\"currency\":\"USD\"},\"rateValueType\":\"ABSOLUTE\",\"tax\":{\"taxable\":true,\"taxGroupId\":6,\"taxInclusiveAmount\":{\"currency\":\"USD\",\"value\":\"0.0000000\"},\"taxAmount\":{\"currency\":\"USD\",\"value\":\"-8.8800000\"},\"taxableAmount\":{\"currency\":\"USD\",\"value\":\"-100.0000000\"},\"taxOverrideDeltaAmount\":{\"currency\":\"USD\",\"value\":\"0.0000000\"},\"specialTaxType\":\"NONE\",\"specialTaxOpenBalance\":{\"currency\":\"USD\",\"value\":\"0.0000000\"},\"qboTaxAmount\":{\"currency\":\"USD\",\"value\":\"-8.8800000\"},\"qboTaxableAmount\":{\"currency\":\"USD\",\"value\":\"-100.0000000\"}},\"isForexGainLoss\":false,\"createdAt\":\"2025-04-11T02:00:52Z\",\"createdByUser\":{\"id\":\"9341453821153531\"},\"updatedAt\":\"2025-04-11T02:00:52Z\",\"updatedByUser\":{\"id\":\"9341453821153531\"},\"accountId\":\"5\",\"exchangeRate\":\"1.0000000\",\"currencyCode\":\"USD\",\"customerId\":{\"accountId\":\"3\"},\"isSale\":true,\"isNoPost\":true}],\"exceptionFlag\":false,\"isNoPost\":true,\"numberOfDetailLines\":4,\"maxSequenceNumber\":3,\"esignature\":{}, \"discount\" : {\"locationId\": \"123\"}, \"shipping\" : {\"locationId\": \"123\"}, \"depositRequested\" : {\"locationId\": \"123\"}, \"gratuity\" : {\"locationId\": \"123\"}}
+ customerid:
+
+
+
+
+"{\"id\":\"64\",\"meta\":{\"created\":\"2025-04-11T09:00:52.531Z\",\"createdByUser\":{\"id\":\"9341453821153531\"},\"updated\":\"2025-04-11T09:00:52.531Z\",\"updatedByUser\":{\"id\":\"9341453821153531\"},\"createdByApp\":{\"id\":\"5984175597871433197\"},\"updatedByApp\":{\"id\":\"5984175597871433197\"}},\"intuitAccountId\":\"9341453821153484\",\"version\":0,\"sourceEntityVersion\":0,\"active\":true,\"transactionDate\":\"2025-04-11\",\"totalAmount\":{\"currency\":\"USD\",\"value\":\"108.8800000\"},\"homeTotalAmount\":{\"currency\":\"USD\",\"value\":\"108.8800000\"},\"exchangeRate\":\"1.0000000\",\"currencyCode\":\"USD\",\"referenceNumber\":\"242zz\",\"approvalInfo\":{\"approvalDetails\":[{}]},\"tags\":[],\"customFields\":[],\"customerId\":\"3\",\"schedule\":{},\"delivery\":{\"shareLink\":{},\"emailDelivery\":{\"sendLater\":false},\"printDelivery\":{\"status\":\"NOT_PRINTED\",\"printLater\":false,\"checkStatus\":\"NOT_PRINTED\",\"checkPrintLater\":false},\"deliveryType\":\"DONT\"},\"style\":{\"styleTemplateId\":\"12029002\"},\"financing\":{\"financingEnabled\":false},\"billingAddress\":{\"freeFormAddress\":\"Anu-Test-attachment\\n4 Washington Square N\\ncalifornia, New York\\nNY  10003 United States\"},\"acceptance\":{\"acceptanceStatus\":\"PENDING\"},\"email\":{},\"isVoided\":false,\"onlinePayment\":{\"enableCCPayment\":false,\"enableBankPayment\":false,\"enablePayPalPayment\":false,\"enableTips\":false},\"estimateCostAmount\":{\"currency\":\"USD\",\"value\":\"0.0000000\"},\"estimateHomeCostAmount\":{\"currency\":\"USD\",\"value\":\"0.0000000\"},\"billingAddressId\":\"135\",\"shippingAddressId\":\"136\",\"regionIndustryType\":\"NOT_SPECIFIED\",\"tax\":{\"totalTaxAmount\":{\"currency\":\"USD\",\"value\":\"8.8800000\"},\"taxRateDetails\":[{\"taxRateId\":7,\"taxAmount\":{\"currency\":\"USD\",\"value\":\"-4.0000000\"},\"taxableAmount\":{\"currency\":\"USD\",\"value\":\"-100.0000000\"},\"qboTaxAmount\":{\"currency\":\"USD\",\"value\":\"-4.0000000\"},\"qboTaxableAmount\":{\"currency\":\"USD\",\"value\":\"-100.0000000\"},\"taxRateType\":\"PERCENTAGE\",\"taxRate\":{\"currency\":\"USD\",\"value\":\"4.0000000\"}},{\"taxRateId\":8,\"taxAmount\":{\"currency\":\"USD\",\"value\":\"-4.8800000\"},\"taxableAmount\":{\"currency\":\"USD\",\"value\":\"-100.0000000\"},\"qboTaxAmount\":{\"currency\":\"USD\",\"value\":\"-4.8800000\"},\"qboTaxableAmount\":{\"currency\":\"USD\",\"value\":\"-100.0000000\"},\"taxRateType\":\"PERCENTAGE\",\"taxRate\":{\"currency\":\"USD\",\"value\":\"4.8750000\"}}],\"taxTreatmentType\":\"EXCLUSIVE\",\"taxableType\":false,\"taxExemptionOverridden\":false,\"exchangeRate\":\"1.0000000\",\"currencyCode\":\"USD\",\"customerId\":{\"accountId\":\"3\"},\"exceptionFlag\":false,\"isSale\":true,\"isNoPost\":true},\"shipping\":{\"amount\":{\"currency\":\"USD\"},\"shipToAddress\":{\"freeFormAddress\":\"Anu-Test-attachment\\n4 Washington Square N\\ncalifornia, New York\\nNY  10003 United States\"},\"tax\":{\"taxable\":false,\"taxAmount\":{\"currency\":\"USD\"},\"qboTaxAmount\":{\"currency\":\"USD\"}},\"inclusiveAmount\":{\"currency\":\"USD\"},\"exchangeRate\":\"1.0000000\",\"currencyCode\":\"USD\",\"customerId\":{\"accountId\":\"3\"},\"isNoPost\":true},\"lines\":[{\"lineId\":\"1\",\"lineOrder\":1,\"totalAmount\":{\"currency\":\"USD\",\"value\":\"100.0000000\"},\"customExtensions\":[],\"quantity\":\"1.0000000\",\"rate\":{\"currency\":\"USD\",\"value\":\"100.0000000\"},\"productVariantId\":\"1\",\"isDeferred\":false,\"homeTotalAmount\":{\"currency\":\"USD\",\"value\":\"100.0000000\"},\"homeCostAmount\":{\"currency\":\"USD\",\"value\":\"0.0000000\"},\"inclusiveAmount\":{\"currency\":\"USD\",\"value\":\"0.0000000\"},\"subtotalAmount\":{\"currency\":\"USD\",\"value\":\"0.0000000\"},\"itemRateType\":\"PER_QTY_RATE\",\"estimateCostAmount\":{\"currency\":\"USD\",\"value\":\"0.0000000\"},\"estimateCostRate\":{\"currency\":\"USD\",\"value\":\"0.0000000\"},\"remainingAmount\":{\"currency\":\"USD\",\"value\":\"0.0000000\"},\"lineManuallyClosed\":false,\"markup\":{\"currency\":\"USD\"},\"rateValueType\":\"ABSOLUTE\",\"tax\":{\"taxable\":true,\"taxGroupId\":6,\"taxInclusiveAmount\":{\"currency\":\"USD\",\"value\":\"0.0000000\"},\"taxAmount\":{\"currency\":\"USD\",\"value\":\"-8.8800000\"},\"taxableAmount\":{\"currency\":\"USD\",\"value\":\"-100.0000000\"},\"taxOverrideDeltaAmount\":{\"currency\":\"USD\",\"value\":\"0.0000000\"},\"specialTaxType\":\"NONE\",\"specialTaxOpenBalance\":{\"currency\":\"USD\",\"value\":\"0.0000000\"},\"qboTaxAmount\":{\"currency\":\"USD\",\"value\":\"-8.8800000\"},\"qboTaxableAmount\":{\"currency\":\"USD\",\"value\":\"-100.0000000\"}},\"isForexGainLoss\":false,\"createdAt\":\"2025-04-11T02:00:52Z\",\"createdByUser\":{\"id\":\"9341453821153531\"},\"updatedAt\":\"2025-04-11T02:00:52Z\",\"updatedByUser\":{\"id\":\"9341453821153531\"},\"accountId\":\"5\",\"exchangeRate\":\"1.0000000\",\"currencyCode\":\"USD\",\"customerId\":{\"accountId\":\"3\"},\"isSale\":true,\"isNoPost\":true}],\"exceptionFlag\":false,\"isNoPost\":true,\"numberOfDetailLines\":4,\"maxSequenceNumber\":3,\"esignature\":{}, \"discount\" : {\"locationId\": \"123\"}, \"shipping\" : {\"locationId\": \"123\"}, \"depositRequested\" : {\"locationId\": \"123\"}, \"gratuity\" : {\"locationId\": \"123\"}}
+
+
+
+
+
+
+
+
+
+ssh-keygen -t ed25519 -C “anulekha_achanta@intuit.com"  ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICqHFU1leaGuZR0NhPki2L/DLAOpq1ggFhG5/5a+YOnH anulekha_achanta@intuit.com
+  Last login: Mon Jan  6 10:39:21 on ttys000
+aachanta@macos-H2GFMW2QN0 ~ % ssh-keygen -t ed25519 -C "anulekha_achanta@intuit.com"
+Generating public/private ed25519 key pair.
+Enter file in which to save the key (/Users/aachanta/.ssh/id_ed25519): 
+Created directory '/Users/aachanta/.ssh'.
+Enter passphrase (empty for no passphrase): 
+Enter same passphrase again: 
+Your identification has been saved in /Users/aachanta/.ssh/id_ed25519
+Your public key has been saved in /Users/aachanta/.ssh/id_ed25519.pub
+The key fingerprint is:
+SHA256:eUjaDAveQWSzswA72QH/qG7GZQgIYlISv0y9nhppWyM anulekha_achanta@intuit.com
+The key's randomart image is:
++--[ED25519 256]--+
+|oo+...=          |
+|++ B + o         |
+|* * * = .        |
+|oo + B @ o       |
+| .o.+ * S .      |
+|  .+o.   .       |
+| .Eo=            |
+| o+* .           |
+| o+              |
++----[SHA256]-----+
+aachanta@macos-H2GFMW2QN0 ~ % eval "$(ssh-agent -s)"
+Agent pid 55601
+aachanta@macos-H2GFMW2QN0 ~ % nano ~/.ssh/config
+aachanta@macos-H2GFMW2QN0 ~ % ssh-add --apple-use-keychain ~/.ssh/id_ed25519
+Enter passphrase for /Users/aachanta/.ssh/id_ed25519: 
+Identity added: /Users/aachanta/.ssh/id_ed25519 (anulekha_achanta@intuit.com)
+aachanta@macos-H2GFMW2QN0 ~ % pbcopy < ~/.ssh/id_ed25519.pub
+aachanta@macos-H2GFMW2QN0 ~ % pbcopy < ~/.ssh/id_ed25519.pub
+aachanta@macos-H2GFMW2QN0 ~ % aws-cli
+zsh: command not found: aws-cli
+aachanta@macos-H2GFMW2QN0 ~ % aws configure
+AWS Access Key ID [None]: 
+ 	1	Intellij IDE setup : Done
+1. Git setup : Done
+2. STS setup : done
+3. Running STS locally : done
+Google Java Style Guide
+ Daily status update:
+1. Running STS locally : Done
+2. AWS Setup : Done
+3. Google Java Style Guide : Done
+   podman machine stop podman-machine-default
+podman machine rm podman-machine-default
+podman machine init --disk-size 100 --memory 4096
+podman machine start ./scripts/start_podman_service.sh
+sh ./scripts/podman_start.sh
+sh ./scripts/aws-endpoints.sh
+
+
+  8:15 PM
+curl -k https://localhost:8443/health/full
+8:17
+Vikram Sharma
+https://github.intuit.com/sales-core/sales-txn-service/wiki/SETUP:-Local-dev point 10
+  	1	From the command line , cd %STS_HOME%/ and run podman service ./scripts/start_podman_service.sh
+1. Run podman pod ./scripts/podman_start.sh
+2. Run aws service ./scripts/aws-endpoints.sh
+
+Setup IntelliJ Run Configurations
+* 		Main class: com.intuit.sbseg.salestxns.app.Application
+* 		Active profile: local
+  ssh-keygen -t rsa -b 4096 -C anulekha_achanta@intuit.com    Last login: Wed Jan 15 16:07:35 on ttys000
+aachanta@macos-H2GFMW2QN0 ~ % cd Project 
+aachanta@macos-H2GFMW2QN0 Project % cd sales-txn-service 
+aachanta@macos-H2GFMW2QN0 sales-txn-service % ssh-keygen -t rsa -b 4096 -C anulekha_achanta@intuit.com
+Generating public/private rsa key pair.
+Enter file in which to save the key (/Users/aachanta/.ssh/id_rsa): 
+Enter passphrase for "/Users/aachanta/.ssh/id_rsa" (empty for no passphrase): 
+Enter same passphrase again: 
+Your identification has been saved in /Users/aachanta/.ssh/id_rsa
+Your public key has been saved in /Users/aachanta/.ssh/id_rsa.pub
+The key fingerprint is:
+SHA256:RsShKGTyqDApJRgLf6aXhn7Yu4Awo5ugl5AO1yHxGto anulekha_achanta@intuit.com
+The key's randomart image is:
++---[RSA 4096]----+
+|*.+    .o.       |
+|o%.  . o.        |
+|B +o+ . .        |
+|+.o*o. .         |
+|=+o=+.  S        |
+|B=E=.  .         |
+|*o+.o            |
+|o+oo .           |
+|+.  o.           |
++----[SHA256]-----+
+aachanta@macos-H2GFMW2QN0 sales-txn-service % 
+Last login: Wed Jan 15 16:07:35 on ttys000
+aachanta@macos-H2GFMW2QN0 ~ % cd Project 
+aachanta@macos-H2GFMW2QN0 Project % cd sales-txn-service 
+aachanta@macos-H2GFMW2QN0 sales-txn-service % ssh-keygen -t rsa -b 4096 -C anulekha_achanta@intuit.com
+Generating public/private rsa key pair.
+Enter file in which to save the key (/Users/aachanta/.ssh/id_rsa): 
+Enter passphrase for "/Users/aachanta/.ssh/id_rsa" (empty for no passphrase): 
+Enter same passphrase again: 
+Your identification has been saved in /Users/aachanta/.ssh/id_rsa
+Your public key has been saved in /Users/aachanta/.ssh/id_rsa.pub
+The key fingerprint is:
+SHA256:RsShKGTyqDApJRgLf6aXhn7Yu4Awo5ugl5AO1yHxGto anulekha_achanta@intuit.com
+The key's randomart image is:
++---[RSA 4096]----+
+|*.+    .o.       |
+|o%.  . o.        |
+|B +o+ . .        |
+|+.o*o. .         |
+|=+o=+.  S        |
+|B=E=.  .         |
+|*o+.o            |
+|o+oo .           |
+|+.  o.           |
++----[SHA256]-----+
+aachanta@macos-H2GFMW2QN0 sales-txn-service % 
+   ssh -L 5436:sts-e2e-uw2-101.cluster-c5uiwi0q88cz.us-west-2.rds.amazonaws.com:5432 -N -i /Users/aachanta/.ssh/sales-txn-service-prd-ssh aachanta@ec2-44-241-159-205.us-west-2.compute.amazonaws.com     To check app health https://sts.local.intuit.com:8443/health/full      20/01  Testing Estimate Write API:
+
+1. The testing is to be carried out on e2e Stage 3.
+2. The first SKU is Simple Start
+3. Add the company ID in e2e to sts-modernization-enabled feature flag "stage 3”.
+4. No need to update anything in sts-api-write-enabled flag (as it’s only supported for stage 0.5 as of now).
+5. Add the company ID in e2e to publish-to-outbox-only feature flag "false" category.
+6. Log in to the company in QBO e2e and create/update the transaction
+7. Verify splunk logs for the tid that the save went thru with "stage3"
+8. Verify sts db that the transaction was created via API call. There may be a corner case where qbo domain event comes before the api call, but that is highly unlikely. If the "created_by_app_id" is "Intuit.sales.core.salesformsui" that means that txn was created via API; and if it is an app id or a sequence of numbers, for example, "5984175597871433197", that means that it is written via domain events.
+9. Check the e2e diff check dashboard, to check any write api diff using filters on intuit tid, company ID, app ID, etc (ignore “remove” entries).
+10. If there are any diffs noted in the diff check dashboard or if the api errors out, verify if the issue has already been noted in the issue tracking sheet. If it's not noted, discuss the issue with the team and add them in the “Write (sales-form-UI) API Issues" issue tracking sheet
+ test1737092559321_iamtestpass
+3:22
+Utkarsha Mahajan
+9341453781889663
+Password1!
+  select delivery_type_v2,s.* from sts_data.sale s where s.id in('57009') and s.realm_id ='9341451469534813';
+
+select s.* from sts_data.sale s where s.id in('37') and s.realm_id ='9341453781889663';
+ select created_by_app_id,s.* from sts_data.sale s where s.id in('69') and s.realm_id ='9341453781889663';
+ select created_by_app_id,s.* from sts_data.sale s where s.id in('70') and s.realm_id ='9341453781889663';
+ select created_by_app_id,s.* from sts_data.sale s where s.id in('71') and s.realm_id ='9341453781889663';
+ 9341452711829287  select created_by_app_id,s.* from sts_data.sale s where s.id in(’773’) and s.realm_id ='9341452711829287';  select created_by_app_id,billing_address,accept_status_v2,reference_number,* from sts_data.sale s where s.id=770 and s.realm_id ='9341452711829287';
+ stage3:  9341452711829287
+test1659679513427_iamtestpass
+simplestartCCC  9130361647622846 simple_test1695904745630_iamtestpass 
+￼
+Anulekha Achanta
+Anulekha Achanta
+  6:27 PM
+TxnId=598
+￼
+Anulekha Achanta
+Anulekha Achanta
+  6:47 PM
+fb6921bd-6dcf-4a7d-b3d1-62f3dfb81070
+6:47
+Anulekha Achanta
+770
+  Linereordering: >788,1515,   297e9847-771f-4b33-8b9a-dd23ca616170  >788,1515,  f5627e45-f5fe-413d-8602-63ef8c1f818e
+  stage 0   9341451496978506
+test1707866026572_iamtestpass@sharklasers.com  test1657216706138_iamtestpass
+
+
+
+7:11
+Swarnali Saha
+test1717922295098_iamtestpass
+   git token : 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
+
+
+To run apis in insomnia we should go to application.yml and make 112 and 167 as false management:
+  server:
+    port: 8490
+    # default is to enable https for actuator 	ssl:
+  		enabled: false
+ and  server:
+  port: 8443
+  ssl:
+    enabled: false
+   9341453827557773 
+test1737752893524_iamtestpass@sharklasers.com
+ 102db eiamCli aws_ssh -a 891377354677 -p sales-txn-service-e2e-dm -d ~/.ssh/
+
+ssh -L 5436:sts-e2e-uw2-102.cluster-c5uiwi0q88cz.us-west-2.rds.amazonaws.com:5432 -N -i /Users/aachanta/.ssh/sales-txn-service-e2e-dm aachanta_ro@ec2-44-241-159-205.us-west-2.compute.amazonaws.com    9341453827557773
+ 
+
+9341453820760566 
+test1735208212682_iamtestpass@sharklasers.com
+   select created_by_app_id,id,billing_address,accept_status_v2,reference_number,s.private_memo,amount,* from sts_data.sale s where s.id=270 and s.realm_id ='9341453632187463';
+
+select created_by_app_id,* from sts_data.sale_detail s where s.sale_id=764 and s.realm_id ='9341454093593655';
+
+select created_by_app_id,* from sts_data.sale_link s where s.realm_id ='9341453827557773';
+
+select * from sts_data.attachment_reference s where s.realm_id ='9341453632187463';
+
+5984175597871433197 - v4api
+Sales-form-ui  Read stage3 write stage0  9341453821153484
+test1737677489784_iamtestpass@sharklasers.com
+ 9341454012999007 - Simple start 9341454093564590 - Mid_Tier 9130360859525376 - Plus
+9341453951296568 -  Simple start 9341453821153484 - Simple start 9341452711829287 - Simple start 9341453820760566 - Simple start 9341453827557773 - Simple start 9341454153985303 - PLUS 
+9130361646793256 - PLUS 9130361646795966 - PLUS 9130361646798166 - PLUS 9130361646801646 - PLUS 9130361646804106 - PLUS 9130361646818436 - PLUS  Shravya Shetty
+Shravya Shetty
+  6:54 PM
+Advance Company from the migrated companies-
+1-Company Id: 9130359586248316   Company_address: test1659679513427_iamtestpass
+
+
+
+6:54
+Shravya Shetty
+I'm working on this
+ 3- 9341454157516874
+advanced
+test1741772023730_iamtestpass@sharklasers.com
+Stage0 company  version check:  edit_sequence and in sts db as version   mvn clean compile   set to java 8
+export JAVA_HOME=/Library/Java/JavaVirtualMachines/amazon-corretto-8.jdk/Contents/Home;
+
+Run karate command.
+mvn -f karate-tests test -s karate-tests/settings.xml -Dkarate.env=local
+
+
+To run karate test -
+* 				Run STS on local
+* 				change to java 8 in command line
+* 				in karate-config.js make following changes in line no. 9 and 10 ---- enableSingleTDS: false, useLocalCompany: true
+* 				Run this command - mvn -f karate-tests test -s karate-tests/settings.xml -Dkarate.env=local
+* 				It might take 7-8 mins to run and ignore any subscription related test failure
+ then use older version of code to complete your STS development and testing
+
+once she will resolve this issue then you can take the latest again
+ git reset --soft HEAD~1  git reset --hard HEAD~1  ALTER TABLE sale_detail
+    ADD COLUMN IF NOT EXISTS customer_id CHARACTER VARYING(255);
+
+ALTER TABLE sale_detail
+    ADD COLUMN IF NOT EXISTS deptId CHARACTER VARYING(255);   export JAVA_HOME=/Library/Java/JavaVirtualMachines/amazon-corretto-11.jdk/Contents/Home
+
+
+##
+# Host Database
+#
+# localhost is used to configure the loopback interface
+# when the system is booting.  Do not change this entry.
+##
+127.0.0.1	localhost
+255.255.255.255	broadcasthost
+::1             localhost
+127.0.0.1 sts.local.intuit.com
+127.0.0.1 plugin-localhost.intuitcdn.net qbo.local.intuit.com localhost.intuit.com
+35.155.0.166 b-1.eventbusmsk-sbseg-e2e.hz7ee1.c3.kafka.us-west-2.amazonaws.com
+44.232.123.204 b-2.eventbusmsk-sbseg-e2e.hz7ee1.c3.kafka.us-west-2.amazonaws.com
+44.236.229.189 b-3.eventbusmsk-sbseg-e2e.hz7ee1.c3.kafka.us-west-2.amazonaws.com
+54.186.68.27 b-4.eventbusmsk-sbseg-e2e.hz7ee1.c3.kafka.us-west-2.amazonaws.com
+44.241.102.56 b-5.eventbusmsk-sbseg-e2e.hz7ee1.c3.kafka.us-west-2.amazonaws.com
+54.188.54.53 b-6.eventbusmsk-sbseg-e2e.hz7ee1.c3.kafka.us-west-2.amazonaws.com
+35.155.0.166 b-1.eventbusmsk-sbseg-e2e.hz7ee1.c3.kafka.us-west-2.amazonaws.com
+44.232.123.204 b-2.eventbusmsk-sbseg-e2e.hz7ee1.c3.kafka.us-west-2.amazonaws.com
+44.236.229.189 b-3.eventbusmsk-sbseg-e2e.hz7ee1.c3.kafka.us-west-2.amazonaws.com
+54.186.68.27 b-4.eventbusmsk-sbseg-e2e.hz7ee1.c3.kafka.us-west-2.amazonaws.com
+44.241.102.56 b-5.eventbusmsk-sbseg-e2e.hz7ee1.c3.kafka.us-west-2.amazonaws.com
+54.188.54.53 b-6.eventbusmsk-sbseg-e2e.hz7ee1.c3.kafka.us-west-2.amazonaws.com
+35.163.65.84 b-7.eventbusmsk-sbseg-e2e.hz7ee1.c3.kafka.us-west-2.amazonaws.com
+52.43.208.193 b-8.eventbusmsk-sbseg-e2e.hz7ee1.c3.kafka.us-west-2.amazonaws.com
+44.241.247.45 b-9.eventbusmsk-sbseg-e2e.hz7ee1.c3.kafka.us-west-2.amazonaws.com
+44.231.196.106 b-10.eventbusmsk-sbseg-e2e.hz7ee1.c3.kafka.us-west-2.amazonaws.com
+52.34.136.244 b-11.eventbusmsk-sbseg-e2e.hz7ee1.c3.kafka.us-west-2.amazonaws.com
+34.210.112.223 b-12.eventbusmsk-sbseg-e2e.hz7ee1.c3.kafka.us-west-2.amazonaws.com
+18.119.6.106 b-1.eventbusmsksbsege2e.n0pbv7.c7.kafka.us-east-2.amazonaws.com
+3.20.98.209 b-2.eventbusmsksbsege2e.n0pbv7.c7.kafka.us-east-2.amazonaws.com
+3.12.247.225 b-3.eventbusmsksbsege2e.n0pbv7.c7.kafka.us-east-2.amazonaws.com
+3.17.192.6 b-4.eventbusmsksbsege2e.n0pbv7.c7.kafka.us-east-2.amazonaws.com
+3.15.81.46 b-5.eventbusmsksbsege2e.n0pbv7.c7.kafka.us-east-2.amazonaws.com
+3.136.140.157 b-6.eventbusmsksbsege2e.n0pbv7.c7.kafka.us-east-2.amazonaws.com
+3.131.146.23 b-7.eventbusmsksbsege2e.n0pbv7.c7.kafka.us-east-2.amazonaws.com
+3.18.178.128 b-8.eventbusmsksbsege2e.n0pbv7.c7.kafka.us-east-2.amazonaws.com
+3.132.120.59 b-9.eventbusmsksbsege2e.n0pbv7.c7.kafka.us-east-2.amazonaws.com
+3.138.166.62 b-10.eventbusmsksbsege2e.n0pbv7.c7.kafka.us-east-2.amazonaws.com
+3.131.178.24 b-11.eventbusmsksbsege2e.n0pbv7.c7.kafka.us-east-2.amazonaws.com
+3.21.208.109 b-12.eventbusmsksbsege2e.n0pbv7.c7.kafka.us-east-2.amazonaws.com
+127.0.0.1 sts.local.intuit.com
+
+
+Diffcheck-mapping 1.check particular diffcheck in dashboard and check entity version if its mismatched then ignore else we need to do next steps.  2.when checking diffcheck, check whether it is from read/write and also check whether is from which stage lets say if I am getting diffcheck for only read and filter with stage 3 /0 and if it is from stage3 and in below events we can check whether it is from domainevent/v4 , even though if we suspect its is v4 we need to check domaineventflow too. 
+￼
+ 
+￼
+ 3.To check the domain event flow mapping is correct or not, first we need to check whether both db save values for the particular field is same or not. If its same then there might issue with read only and not on write. 4.Then we need to check read flow test.. we can compare payload that we get from responses as here in json diff 
+￼
+ Also, by using splunk logs exceptions, we can check these things.. ..And then check mappings over code and find out why this issue is happening.  
+
+
+ssh -L 5436:sts-e2e-uw2-102.cluster-c5uiwi0q88cz.us-west-2.rds.amazonaws.com:5432 -N -i /Users/aachanta/.ssh/sales-txn-service-e2e-dm aachanta_ro@ec2-44-241-159-205.us-west-2.compute.amazonaws.com  eiamCli aws_ssh -a 891377354677 -p sales-txn-service-e2e-dm -d ~/.ssh/
+
+ eiamcli login
+
+
+All companies: https://docs.google.com/spreadsheets/d/1a7oQJtimGgY6u8tXwEeFB1BVQ3dmO5GrQ66J1G4q9CE/edit?gid=1423713655#gid=1423713655  Advance: 
+Write(Stage0Write Stage3Read)
+
+Company_id, Company_email
+companyId= 9341453510833687
+company_email=test1733950331711_iamtestpass@sharklasers.com
+ Plus:  
+Write(Stage3Write Stage3Read)
+
+Company_id, Company_email
+Company Email
+test1659679513427_iamtestpass@sharklasers.com
+9130359877669376
+ simple start:  
+Stage0 Write Stage3 Read
+
+Company_id, Company_email
+companyId= 9341453821153484
+company_email=test1737677489784_iamtestpass@sharklasers.com
+  Essentials:  
+Write(Stage0Write Stage3Read)
+
+Company_id, Company_email
+companyId= 9341454093564590
+company_email=test1741000117534_iamtestpass@sharklasers.com
+ PROD:  9341453610207549	Simple Start SKU	varun_singh_iamtestpass   Hello @Tarun Sharma 
+I am working on sales-view testing so can you please add these prod test companies added to the  PROD UI plugin
+
+Move the below companies to Read Stage3 Write Stage0
+9341453610202208	Plus SKU
+9341453610168536	Essential SKU
+9341453610207549	Simple Start SKU
+9341453610219891	Advance SKU
+
+Move the below companies to Read Stage3 Write Stage3
+9341453610246596	Plus SKU
+9341453610256289	Essential SKU
+9341453610256122	Simple Start SKU
+9341453610262724	Advance SKU  
+
+Prod: read-stage0  2 scenario are there 1)due to version mismatch issue . 2) version is same and no error in splunk.  E2E: read-stage3  2 scenario are there 1)due to version mismatch issue . 2) version is same but in splunk logs : swimlaneId=e2e-usw2-swimlane; sk=sts-e2e-uw2-102_sts_e2e_102_01 st=WRITER; event_type=read_transaction  logger=salestxns.core.service.provider.TransactionProviderService; action=readOne state=error fallbackToQbo=yes isSTSRecordStale=yes fallbackType=staleFallback modernizationStage=stage3 txType=SALE_ESTIMATE txnId=163838 message="STS transaction is not in sync with QBO" QboVersion=0 StsVersion=0 QboUpdatedDate=2025-04-16T07:58:56.000-07:00 StsUpdatedDate=2025-04-16T14:58:55.707Z realmid=9341451457030852; user_id=4621097838856902692; intuit_tid=37fbe913-270d-4b4b-be11-bb88a07b0399; appId=Intuit.sales.core.salesformsui;  requestId=bf91a792-8c99-4ff8-b89a-31fc354b81f3;   txnId=163838;           isMeshCall=false;   Db Change Field: 6af41455-d97b-4016-a65b-54413c856bcf Db Change Field: 37fbe913-270d-4b4b-be11-bb88a07b0399   Prod: read-stage3  2 scenario are there 1)due to version mismatch issue . 2) version is same and in splunk logs st=WRITER; event_type=read_transaction  logger=util.RequestMetricsLogger; Error getting interaction result from interaction request java.util.concurrent.ExecutionException: com.intuit.v4.interaction.InteractionException: Remote API connection error realmid=9130361809197906; user_id=9130358048797236; intuit_tid=c2c03b94-1687-4e25-a516-34a240b776fb; appId=Intuit.sales.core.salesformsui;  requestId=fbf151b2-20cf-4fdb-b9d3-188b62047fe1;   txnId=19687;           isMeshCall=false;  E2E: read-stage3  2 scenario are there 1)due to version mismatch issue . 2) version is same but in splunk logs : st=WRITER; event_type=read_transaction  logger=salestxns.core.util.V4DiffTool; action=readOne state=error fallbackToQbo=yes errorPath=lines.itemLines.traits.tax.totalTaxableAmount qboValue=null stsValue=0.00 isSTSResponseDifferentForSpecificFields=yes modernizationStage=stage3 txnId=13566, message="Value mismatch between QBO and STS, fallback"  realmid=9130352519076376; user_id=9130352519070106; intuit_tid=dd0f35cb-5221-4228-b8be-ee16aec98a4e; appId=Intuit.sales.core.salesformsui;  requestId=6a06def9-64ea-4773-951e-0fdd7368e908;   txnId=13566;           isMeshCall=false;  Db Change Field: c2c03b94-1687-4e25-a516-34a240b776fb Db Change Field: dd0f35cb-5221-4228-b8be-ee16aec98a4e      gratuity enabled is not applicable for estimate Balaji mentioned and we might need to fix invoice.  As in db side we have same value and entity version is same we need to check monolithic code. So check in Acela    https://acela-qbo-ks-e2e.app.intuit.com/acela-ui-plugin/acelaui  1.default value in code sts. 2.gratuity enabled check in e2e and db. To know in which scenario value is been decided. 3.acela tool we can give a prompt/usecase like give me a code regarding field in qbo monolithic and is there any default value which is been assigned to gratuityenabled.What is the scenario where gratuity enabled value is been decided. Take this monolithic code as reference and check whether any similar code is added in sts. How it is working.
+
+
+Deepcheck issues means diff in dis and left will be qbo and right will bw sts and thereby we need to fix the code
+
+
+…..  Shipping address  select * from txDetails_1 where tx_id=2973;
+
+select * from txHeaders_1 where tx_id=2974;
+
+select * from TxHeadersExt_1 where tx_id=2974;
+
+select * from AttachableRefs_1 where entity_id=19687;
+
+select * from Addresses_1 where address_id=144;
+
+select * from Attachables_1;  select enable_online_payment , * from sts_data.sale_payment_info where realm_id='9341452398397518' and sale_id = '69199';
+
+select * from sts_data.sale_detail where location_id is not null and type_v2=3;
+
+select * from sts_data.sale_payment_info where enable_online_payment is true;
+
+select * from sts_data.sale_detail where customer_id is not null and type_v2=3;
+
+select enable_online_payment ,created_on , updated_on , realm_id , * from sts_data.sale_payment_info limit 10;
+
+select customer_id , * from sts_data.sale_detail where realm_id='9341452410131968' and customer_id is not null;
+
+select payment_method_id,* from sts_data.sale_detail where payment_method_id is not null and realm_id ='9341451662089870';
+
+
+select  customer_id,  realm_id , created_on ,type_v2 , * from sts_data.sale_detail where  customer_id is not null and type_v2 in (8) limit 50;
+
+select  location_id , realm_id , * from sts_data.sale_detail where  location_id is not null limit 10;
+
+select  payment_method_id  , realm_id , sale_id ,ship_date , * from sts_data.sale_detail where payment_method_id is not null and realm_id ='13633946367508364' order by sale_id desc limit 10 ;
+
+
+select customer_id,* from sts_data.sale_detail where customer_id is not null and type_v2=8;
+
+
+9341453821153484
+
+select * from sts_data.sale where realm_id='9341453821153484' and id = '68';
+
+9341451491713375
+select * from sts_data.sale where realm_id='9341451491713375' and id = '872';
+
+select * from sts_data.SALE_PAYMENT_INFO where realm_id='9341451491713375';
+
+select * from sts_data.SALE_PAYMENT_INFO where realm_id='9341452711829287' and sale_id =2974;
+
+9341453510833687
+ splunk logs   "saving*"  FF is off and saving on STS and Outbox   index=sbg-services sourcetype=sales-txn-service-e2e 9341453821153484 68 "saving*"
