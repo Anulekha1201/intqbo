@@ -1,3 +1,236 @@
+Let me explain how data mapping works between DIS and STS, including the role of company IDs and feature flags:
+Company ID and Feature Flag Integration:
+The system uses company IDs (also called realm IDs) to identify different companies/tenants
+Feature flags are used to control functionality at the company level
+Key feature flags include:
+Apply to IXPFeatureFl...
+USE_QBO_DEPENDENCY_RESOLVER
+Modernization State Management:
+The ModernizationFeatureFlagUtil class handles the modernization state for each company:
+Apply to IXPFeatureFl...
+}
+Data Mapping Flow:
+When data comes from DIS, it goes through several stages:
+Initial mapping from DIS format to STS domain model
+Feature flag checks to determine which path to take
+Modernization state checks to determine if using new or legacy paths
+Company-specific configurations applied
+Company Sharding:
+Companies are mapped to specific database shards:
+Feature Parity and Shadow Testing:
+The system supports feature parity testing through shadow workflows:
+Apply to IXPFeatureFl...
+}
+QBO Dependency Resolution:
+When enabled, uses QBO dependency resolver for certain operations:
+Apply to IXPFeatureFl...
+}
+Error Handling and Fallbacks:
+The system includes fallback mechanisms when primary paths fail:
+Apply to IXPFeatureFl...
+}
+Configuration Management:
+Feature flags are managed through IXP (Int
+Data Synchronization:
+The system maintains data consistency between DIS and STS through:
+Feature parity checks
+Shadow testing
+Diff checking
+Fallback mechanisms
+Company-Specific Features:
+Different features can be enabled/disabled per company using feature flags
+Companies can be in different modernization stages
+Each company can have its own database shard
+This architecture allows for:
+Gradual rollout of features
+Company-specific configurations
+A/B testing capabilities
+Fallback mechanisms for reliability
+Data consistency checks
+Modernization path control
+Would you like me to elaborate on any specific aspect of this mapping process?
+
+
+
+Based on the code, I'll explain how feature flags are configured and checked in the STS system:
+Feature Flag Configuration:
+Feature flags are defined in FeatureFlags.java as constants:
+Apply to IXPFeatureFl...
+}
+Feature Flag Service Implementation:
+The system uses two types of feature flag services:
+IXP (Intuit Experience Platform) Feature Flag Service
+Database Feature Flag Service
+How to Check Feature Flags:
+Apply to IXPFeatureFl...
+;
+Feature Flag Configuration Sources:
+IXP Configuration:
+
+
+Per-Request Feature Control:
+For debugging in non-prod environments:
+Apply to IXPFeatureFl...
+}
+Feature Flag Checking Examples:
+Apply to IXPFeatureFl...
+;
+Feature Flag Storage:
+DynamoDB for database-backed flags
+
+Feature Flag Context:
+Flags can be checked with different contexts:
+Apply to IXPFeatureFl...
+}
+Error Handling:
+Apply to IXPFeatureFl...
+}
+Testing Feature Flags:
+Apply to IXPFeatureFl...
+}
+To use feature flags in your code:
+
+Define the flag constant in FeatureFlags.java
+Inject the FeatureFlag service where needed
+Use the appropriate getter method based on the flag type (boolean, string, or JSON)
+Always provide a default value for safety
+Include the company ID when the flag is company-specific
+Would you like me to elaborate on any specific aspect of feature flag configuration or checking?
+
+
+
+I'll help you understand how data flows from Insomnia to V4 and the key classes involved in this process. Let me search for the relevant code:
+Let me explain how data flows from Insomnia to V4 and the key classes involved in this process:
+Entry Point - TransactionProvider:
+Apply to TransactionP...
+}
+Transaction Service Layer:
+Apply to TransactionP...
+}
+        return transactionWorkflowEngine.execute(saveV4TransactionContext, saveTransactionRegistry);
+Save Workflow Components:
+Apply to TransactionP...
+}
+Data Flow Process:
+Request Handling:
+Insomnia request comes in through TransactionProvider
+Request is converted to a V4 Transaction object
+SaveV4TransactionContext is created with the transaction data
+Save Flow:
+TransactionServiceImpl receives the save request
+Creates a SaveV4TransactionContext with:
+Transaction data
+Realm ID (company ID)
+GraphQL query
+Custom headers
+Persistence Logic:
+SaveTransactionPersistComponent handles the actual save:
+If draft is enabled, saves directly to QBO
+Otherwise, saves to STS first
+Maps between V4 and STS domain models
+Data Mapping:
+Apply to TransactionP...
+;
+Key Classes for Data Flow:
+TransactionProvider: Entry point for V4 requests
+TransactionServiceImpl: Main service layer
+SaveTransactionPersistComponent: Handles persistence logic
+TransactionV4Mapper: Maps between V4 and STS models
+SaleService: Handles STS domain operations
+QBOTxnService: Handles QBO operations
+Save Context:
+Apply to TransactionP...
+}
+Error Handling:
+Validation errors are caught and converted to appropriate exceptions
+Transaction rollback on failures
+Error logging at various stages
+Feature Flags:
+Apply to TransactionP...
+}
+The flow ensures:
+Data validation
+Proper mapping between V4 and STS models
+Transaction consistency
+Error handling
+Feature flag support
+QBO synchronization when needed
+Would you like me to elaborate on any specific part of this flow?
+before gng to transactionprovider claases to which classes it goess
+
+Let me search for the classes that handle the request before it reaches the TransactionProvider:
+Let me explain the flow of data from Insomnia to V4 before it reaches the TransactionProvider:
+Initial Entry Point - V4Controller:
+Apply to TransactionP...
+}
+This is the first point where V4 requests are received.
+Request Processing Flow:
+StorefrontGedNonProdController (for storefront requests):
+Apply to TransactionP...
+}
+TransactionV4Mapper (Data Mapping):
+Apply to TransactionP...
+}
+Request Context and Headers:
+Apply to TransactionP...
+}
+Data Transformation Flow:
+Input Processing:
+Request comes in through V4Controller
+Gets converted to V4RequestContext
+Deserialized into appropriate wrapper (e.g., GedStorefrontWrapper)
+Data Mapping:
+V4 Transaction object is created
+Mapped to SaleDomain using TransactionV4Mapper
+Handles various traits and attributes:
+Balance traits
+Delivery traits
+Payment traits
+Custom fields
+Validation and Processing:
+Validates input data
+Processes headers and context
+Handles feature flags
+Manages company/realm ID
+Key Components Before TransactionProvider:
+Controllers:
+V4Controller: Main V4 request handler
+StorefrontGedNonProdController: Handles storefront requests
+AdminPaymentRequestController: Handles admin requests
+Mappers:
+TransactionV4Mapper: Main mapper for V4 transactions
+ApprovalV4Mapper: Handles approval-related mappings
+StatementV4Mapper: Handles statement-related mappings
+Services:
+TransactionService: Core transaction operations
+PaymentRequestService: Handles payment requests
+AdminPaymentRequestService: Handles admin payment operations
+Data Flow Summary:
+Apply to TransactionP...
+TransactionProvider
+Important Features:
+Feature flag support
+Error handling
+Request validation
+Data transformation
+Audit logging
+Company/realm context management
+Would you like me to elaborate on any specific part of this flow?
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 id_rsa.pub
 ￼
  ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDLk/K0b4RsvkGH3opH5HrC0Cq6R6loHBbqG4jf0Uj1RmkXWHmbkunccJNUqPB/QStMeZutmwxtmDkd+wwxQMjDWoyeLzWHAEG26h1yY3O3Kt2utL/w+1IV56WWjnotKTfe70lQAwgzCFHA/+Ov28TeBaBaj0tw9H4pbYRhM5ASEPFz0xlYsqnC+Cd2IU4xGIQiZymUWYEUtTSquWHG0dNFb4WrZHkvrWZBME2pPZBwt65s8D1mOAN93YsiZkkUQBC+IOLBPnT/ctiOaQbauy4Wu4s5bgnT4GU0EzWF/WI0hK3r7O/NbLYV7PkUP2tes1vn5W0vPzv6Vlqm+TXuY/hLgMB5Ay6TYWRxx0KPj3o6V8pC0kYfmGB1HjyzCxp1Is5Ai6rRFGIWjatT/rJaguOfU4ft9/l7dVVaNtI+N75u6I2VRLlRpzPtq/NnEFRjYLCNgipY8v150Sm00ENqNSh9eLBm/LZg7GvYiZk0fdoV8petaPj55glTHQmF8xxMcF6X6V8espGHHwSqnMoAS1k0nc09McsXmzyfL5/4WgStHw2KkLjeIO1iGv79NolQJv1spWMshSQZvIhfZbaQJuWdwLU/nSYA3UEwu3LsTi2g289ODSasqgAk/OBGqIyqjIuWciM/zRUbTHv5UjBQzje+Wd9SptCgNaukAkt7Nz4WkQ== anulekha_achanta@intuit.com
